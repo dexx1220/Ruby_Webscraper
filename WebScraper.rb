@@ -69,20 +69,20 @@ end
 #Method to find apartment(s) with most rooms
 def most_rooms
   has_info = 0
-  has_info = $postings.select{|p| p.to_s.downcase[/\d+(?=bedroom)|\d+(?=br)/]}
-  max_post = has_info.max{|a,b| a.to_s.downcase[/\d+(?=bedroom)|\d+(?=br)/].to_i <=> b.to_s.downcase[/\d+(?=bedroom)|\d+(?=br)/].to_i}
-  max_room = max_post.to_s.downcase[/\d+(?=bedroom)|\d+(?=br)/].to_i
-  max_room_ads = has_info.select{|p| p.to_s.downcase[/\d+(?=bedroom)|\d+(?=br)/].to_i == max_room}
+  has_info = $postings.select{|p| p.to_s.downcase[/\d+(?=bedroom|br)/]}
+  max_post = has_info.max{|a,b| a.to_s.downcase[/\d+(?=bedroom|br)/].to_i <=> b.to_s.downcase[/\d+(?=bedroom|br)/].to_i}
+  max_room = max_post.to_s.downcase[/\d+(?=bedroom|br)/].to_i
+  max_room_ads = has_info.select{|p| p.to_s.downcase[/\d+(?=bedroom|br)/].to_i == max_room}
   list_apt(max_room_ads)
 end
 
 #Method to find apartment(s) with least rooms
 def least_rooms
   has_info = 0
-  has_info = $postings.select{|p| p.to_s.downcase[/\d+(?=bedroom)|\d+(?=br)/]}
-  min_post = has_info.min{|a,b| a.to_s.downcase[/\d+(?=bedroom)|\d+(?=br)/].to_i <=> b.to_s.downcase[/\d+(?=bedroom)|\d+(?=br)/].to_i}
-  min_room = min_post.to_s.downcase[/\d+(?=bedroom)|\d+(?=br)/].to_i
-  min_room_ads = has_info.select{|p| p.to_s.downcase[/\d+(?=bedroom)|\d+(?=br)/].to_i == min_room}
+  has_info = $postings.select{|p| p.to_s.downcase[/\d+(?=bedroom|br)/]}
+  min_post = has_info.min{|a,b| a.to_s.downcase[/\d+(?=bedroom|br)/].to_i <=> b.to_s.downcase[/\d+(?=bedroom|br)/].to_i}
+  min_room = min_post.to_s.downcase[/\d+(?=bedroom|br)/].to_i
+  min_room_ads = has_info.select{|p| p.to_s.downcase[/\d+(?=bedroom|br)/].to_i == min_room}
   list_apt(min_room_ads)
 end
 
@@ -102,9 +102,9 @@ def find_apt(options = {})
     when :p_floor
       ads = ads.select{|i| i[1][/(?<=\$)\d+/].to_i >= v}
     when :r_cap
-      ads = ads.select{|i| i.to_s.downcase[/\d+(?=br)|\d+(?=bedroom)/].to_i <= v}
+      ads = ads.select{|i| i.to_s.downcase[/\d+(?=br|bedroom)/].to_i <= v}
     when :r_floor
-      ads = ads.select{|i| i.to_s.downcase[/\d+(?=br)|\d+(?=bedroom)/].to_i >= v}
+      ads = ads.select{|i| i.to_s.downcase[/\d+(?=br|bedroom)/].to_i >= v}
     when :a_cap
       ads = ads.select{|i| i[1][/\d+(?=ft)/].to_i <= v}
     when :a_floor
