@@ -1,0 +1,1 @@
+This is a Ruby web scraper that scrapes data from Craigslist apartment listings.
